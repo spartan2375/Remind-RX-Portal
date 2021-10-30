@@ -1,5 +1,5 @@
 <template>
-  <div class="home pa-6">
+  <div class="home pa-3">
     <!-- <v-text-field
       class="hidden-md-and-down"
       label="New Task"
@@ -86,6 +86,80 @@
         <v-btn text color="primary" @click="updateTask"> OK </v-btn>
       </v-date-picker>
     </v-dialog> -->
+    <v-container class="ma-0">
+      <v-row>
+        <v-col cols="7">
+          <v-list>
+            <v-list-item-group v-model="patientSelected" color="primary">
+              <v-list-item
+                v-for="patient in patients"
+                :key="patient.id"
+                class="my-2"
+              >
+                <v-list-item-avatar size="50">
+                  <img v-bind:src="patient.name + '.jpg'" />
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title> {{ patient.name }} </v-list-item-title>
+                  <v-row dense>
+                    <v-col>
+                      <v-chip
+                        :class="[
+                          patient.status ? 'green' : 'red',
+                          patient.status ? 'green--text' : 'red--text',
+                        ]"
+                        outlined
+                      >
+                        Medication Status:
+                        <v-icon v-if="patient.status"> mdi-cards-heart</v-icon>
+                        <v-icon v-else> mdi-heart-broken</v-icon>
+                      </v-chip>
+                    </v-col>
+                    <v-col>
+                      <v-chip
+                        :class="[
+                          patient.contact ? 'green' : 'red',
+                          patient.contact ? 'green--text' : 'red--text',
+                        ]"
+                        outlined
+                      >
+                        Contact Availability:
+                        <v-icon v-if="patient.contact">mdi-check</v-icon>
+                        <v-icon v-else>mdi-close</v-icon>
+                      </v-chip>
+                    </v-col>
+
+                    <v-col>
+                      <v-chip outlined color="primary">
+                        Last Visit: {{ patient.lastVisit }}
+                      </v-chip>
+                    </v-col>
+                    <v-spacer></v-spacer>
+                    <v-btn icon>
+                      <v-icon color="primary">mdi-cog</v-icon>
+                    </v-btn>
+                  </v-row>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-col>
+
+        <v-col cols="5">
+          <v-avatar size="75">
+            <img :src="currentPatient[0].name + '.jpg'" />
+          </v-avatar>
+          <h2>hello {{ currentPatient[0].name }}</h2>
+          <img src="graph.png" />
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            necessitatibus quis totam ducimus assumenda cupiditate consequuntur.
+            Aspernatur eaque sunt, molestias possimus recusandae cumque. Fugiat
+            dolore minus natus labore in pariatur.
+          </p>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -102,6 +176,31 @@ export default {
       newTaskTitle: "",
       newDate: "",
       editingTaskId: 0,
+      patientSelected: 1,
+      patients: [
+        {
+          name: "Bob",
+          id: 0,
+          status: true,
+          contact: true,
+          lastVisit: "2021-11-05",
+        },
+        {
+          name: "Joe",
+          id: 1,
+          status: true,
+          contact: false,
+          lastVisit: "2021-11-01",
+        },
+        {
+          name: "Raph",
+          id: 2,
+          status: false,
+          contact: true,
+          lastVisit: "2021-10-15",
+        },
+      ],
+
       tasks: [
         {
           id: 1,
@@ -125,6 +224,14 @@ export default {
         },
       ],
     };
+  },
+
+  computed: {
+    currentPatient() {
+      return this.patients.filter((patient) => {
+        return patient.id == this.patientSelected;
+      });
+    },
   },
 
   methods: {
