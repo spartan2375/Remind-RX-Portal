@@ -2,6 +2,8 @@
 
 ## A staff facing portal to view patients and patient details
 
+![Demo picture](public/demo.png)
+
 ## Project setup
 
 ```
