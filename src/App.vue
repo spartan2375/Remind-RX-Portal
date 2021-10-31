@@ -37,9 +37,20 @@
       ></v-text-field>
       <v-spacer></v-spacer>
 
-      <v-avatar>
-        <img src="doctor.jpg" alt="The big coof" />
-      </v-avatar>
+      <v-badge
+        avatar
+        overlap
+        bottom
+        bordered
+        offset-y="18"
+        offset-x="15"
+        color="green"
+        icon="mdi-check"
+      >
+        <v-avatar>
+          <img src="doctor.jpg" alt="The big coof" />
+        </v-avatar>
+      </v-badge>
       <v-btn plain class="mt-2">
         Dr. Wheeler
         <v-icon>mdi-chevron-down</v-icon>

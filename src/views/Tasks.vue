@@ -86,9 +86,9 @@
         <v-btn text color="primary" @click="updateTask"> OK </v-btn>
       </v-date-picker>
     </v-dialog> -->
-    <v-container class="ma-0">
+    <v-container fluid class="ma-0">
       <v-row>
-        <v-col cols="7">
+        <v-col cols="5">
           <v-list>
             <v-list-item-group v-model="patientSelected" color="primary">
               <v-list-item
@@ -145,12 +145,65 @@
           </v-list>
         </v-col>
 
+        <!-- #################
+      LEFT SIDE
+      ################# -->
+        <!-- <v-spacer></v-spacer> -->
         <v-col cols="5">
-          <v-avatar size="75">
-            <img :src="currentPatient[0].name + '.jpg'" />
-          </v-avatar>
-          <h2>hello {{ currentPatient[0].name }}</h2>
+          <v-card>
+            <v-card-title>
+              <v-avatar size="75" class="mr-2">
+                <img :src="currentPatient[0].name + '.jpg'" />
+              </v-avatar>
+              <v-row>
+                <v-col>
+                  <h6>
+                    Last seen in office: {{ currentPatient[0].lastVisit }}
+                  </h6>
+                  <h5>{{ currentPatient[0].name }}</h5>
+                  <h6>70 years | Male</h6>
+                </v-col>
+
+                <v-btn icon large color="primary">
+                  <v-icon>
+                    mdi-information
+                  </v-icon>
+                </v-btn>
+                <v-btn icon large color="red">
+                  <v-icon>
+                    mdi-close
+                  </v-icon>
+                </v-btn>
+              </v-row>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-row>
+                <v-col>
+                  <h4>asdf</h4>
+                </v-col>
+                <v-col>
+                  <h4>test</h4>
+                </v-col>
+                <v-col>
+                  <h4>again</h4>
+                </v-col>
+                <v-col>
+                  <h4>and again</h4>
+                </v-col>
+              </v-row>
+              <v-row>
+                asdf
+              </v-row>
+            </v-card-text>
+          </v-card>
+
+          <v-list>
+            <!-- DO STUFF HERE FOR LISTING MED TIMES -->
+          </v-list>
+
           <img src="graph.png" />
+          <img src="example.png" />
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
             necessitatibus quis totam ducimus assumenda cupiditate consequuntur.
