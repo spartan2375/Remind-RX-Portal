@@ -149,7 +149,7 @@
       LEFT SIDE
       ################# -->
         <!-- <v-spacer></v-spacer> -->
-        <v-col cols="5">
+        <v-col cols="7">
           <v-card>
             <v-card-title>
               <v-avatar size="75" class="mr-2">
@@ -180,24 +180,86 @@
             <v-card-text>
               <v-row>
                 <v-col>
-                  <h4>asdf</h4>
+                  <v-icon>mdi-cards-heart</v-icon>
+                  Blood Pressure
+                  <h2 class="green--text">120/80 mm Hg -10/5</h2>
+                  <h5>last checked: 7 days ago</h5>
                 </v-col>
+                <v-divider vertical></v-divider>
                 <v-col>
-                  <h4>test</h4>
+                  <v-icon>mdi-heart-pulse</v-icon>
+                  Heart Rate
+                  <h2 class="red--text">93 bpm +12</h2>
+                  <h5>last checked: 1 hour ago</h5>
                 </v-col>
+                <v-divider vertical></v-divider>
                 <v-col>
-                  <h4>again</h4>
+                  <v-icon>mdi-scale</v-icon>
+                  Weight
+                  <h2>180 lbs</h2>
+                  <h5>last checked: 7 days ago</h5>
                 </v-col>
+                <v-divider vertical></v-divider>
                 <v-col>
-                  <h4>and again</h4>
+                  <v-icon>mdi-water-alert</v-icon>
+                  Blood Glucose
+                  <h2 class="yellow--text">160 mg/dL +5</h2>
+                  <h5>last checked: 7 days ago</h5>
                 </v-col>
               </v-row>
               <v-row>
-                asdf
+                Notes 2021-11-05: Patient heart rate has increased indicating
+                overdose of 2 litre Mountain Dew
               </v-row>
             </v-card-text>
           </v-card>
 
+          <!-- #########################
+          STUFF ADDED HERE 
+          Heart Rate graph from Vuetify.js docs-->
+
+          <v-card class="mx-auto mt-5" color="grey lighten-4" max-width="600">
+            <v-card-title>
+              <v-icon
+                :color="checking ? 'red lighten-2' : 'indigo'"
+                class="mr-12"
+                size="64"
+                @click="takePulse"
+              >
+                mdi-heart-pulse
+              </v-icon>
+              <v-row align="start">
+                <div class="text-caption grey--text text-uppercase">
+                  Heart rate
+                </div>
+                <div>
+                  <span
+                    class="text-h3 font-weight-black"
+                    v-text="avg || '—'"
+                  ></span>
+                  <strong v-if="avg">BPM</strong>
+                </div>
+              </v-row>
+
+              <v-spacer></v-spacer>
+
+              <v-btn icon class="align-self-start" size="28">
+                <v-icon>mdi-arrow-right-thick</v-icon>
+              </v-btn>
+            </v-card-title>
+
+            <v-sheet color="transparent">
+              <v-sparkline
+                :key="String(avg)"
+                :smooth="16"
+                :gradient="['#f72047', '#ffd200', '#1feaea']"
+                :line-width="3"
+                :value="heartbeats"
+                auto-draw
+                stroke-linecap="round"
+              ></v-sparkline>
+            </v-sheet>
+          </v-card>
           <v-list>
             <!-- DO STUFF HERE FOR LISTING MED TIMES -->
           </v-list>
@@ -219,16 +281,21 @@
 <script>
 import TaskList from "@/components/Task-List.vue";
 
+const exhale = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export default {
   components: { TaskList },
   name: "Home",
   data() {
     return {
-      dialog: false,
-      showPicker: false,
-      newTaskTitle: "",
-      newDate: "",
-      editingTaskId: 0,
+      checking: false,
+      heartbeats: [],
+
+      // dialog: false,
+      // showPicker: false,
+      // newTaskTitle: "",
+      // newDate: "",
+      // editingTaskId: 0,
       patientSelected: 1,
       patients: [
         {
@@ -254,32 +321,41 @@ export default {
         },
       ],
 
-      tasks: [
-        {
-          id: 1,
-          title: "Eat soup",
-          finished: false,
-          due: new Date().toISOString().substr(0, 10),
-        },
+      // tasks: [
+      //   {
+      //     id: 1,
+      //     title: "Eat soup",
+      //     finished: false,
+      //     due: new Date().toISOString().substr(0, 10),
+      //   },
 
-        {
-          id: 2,
-          title: "Hit the vape",
-          finished: false,
-          due: new Date().toISOString().substr(0, 10),
-        },
+      //   {
+      //     id: 2,
+      //     title: "Hit the vape",
+      //     finished: false,
+      //     due: new Date().toISOString().substr(0, 10),
+      //   },
 
-        {
-          id: 3,
-          title: "Get back to work",
-          finished: false,
-          due: new Date().toISOString().substr(0, 10),
-        },
-      ],
+      //   {
+      //     id: 3,
+      //     title: "Get back to work",
+      //     finished: false,
+      //     due: new Date().toISOString().substr(0, 10),
+      //   },
+      // ],
     };
   },
 
   computed: {
+    avg() {
+      const sum = this.heartbeats.reduce((acc, cur) => acc + cur, 0);
+      const length = this.heartbeats.length;
+
+      if (!sum && !length) return 0;
+
+      return Math.ceil(sum / length);
+    },
+
     currentPatient() {
       return this.patients.filter((patient) => {
         return patient.id == this.patientSelected;
@@ -287,7 +363,24 @@ export default {
     },
   },
 
+  created() {
+    this.takePulse(false);
+  },
+
   methods: {
+    heartbeat() {
+      return Math.ceil(Math.random() * (120 - 80) + 80);
+    },
+    async takePulse(inhale = true) {
+      this.checking = true;
+
+      inhale && (await exhale(1000));
+
+      this.heartbeats = Array.from({ length: 20 }, this.heartbeat);
+
+      this.checking = false;
+    },
+
     sortByDue: function() {
       this.tasks.sort((a, b) => {
         if (a.due > b.due) {
@@ -298,50 +391,50 @@ export default {
       });
     },
 
-    addTask() {
-      this.dialog = false;
-      if (this.newTaskTitle != "") {
-        let newTask = {
-          id: Date.now(),
-          title: this.newTaskTitle,
-          finished: false,
-          due: new Date().toISOString().substr(0, 10),
-        };
-        this.tasks.push(newTask);
-        this.newTaskTitle = "";
-      }
-    },
+    // addTask() {
+    //   this.dialog = false;
+    //   if (this.newTaskTitle != "") {
+    //     let newTask = {
+    //       id: Date.now(),
+    //       title: this.newTaskTitle,
+    //       finished: false,
+    //       due: new Date().toISOString().substr(0, 10),
+    //     };
+    //     this.tasks.push(newTask);
+    //     this.newTaskTitle = "";
+    //   }
+    // },
 
-    deleteTask(id) {
-      console.log("id: ", id);
-      this.tasks = this.tasks.filter((task) => task.id !== id);
-    },
+    // deleteTask(id) {
+    //   console.log("id: ", id);
+    //   this.tasks = this.tasks.filter((task) => task.id !== id);
+    // },
 
-    editTask(id) {
-      this.editingTaskId = id;
-      console.log("id: ", id);
-      this.showPicker = true;
-    },
+    // editTask(id) {
+    //   this.editingTaskId = id;
+    //   console.log("id: ", id);
+    //   this.showPicker = true;
+    // },
 
-    updateTask() {
-      let currentTask = this.tasks.filter(
-        (task) => task.id === this.editingTaskId
-      );
-      this.tasks = this.tasks.filter((task) => task.id !== this.editingTaskId);
-      currentTask[0].due = this.newDate;
-      this.tasks.push(currentTask[0]);
-      this.showPicker = false;
-      this.sortByDue();
-    },
+    // updateTask() {
+    //   let currentTask = this.tasks.filter(
+    //     (task) => task.id === this.editingTaskId
+    //   );
+    //   this.tasks = this.tasks.filter((task) => task.id !== this.editingTaskId);
+    //   currentTask[0].due = this.newDate;
+    //   this.tasks.push(currentTask[0]);
+    //   this.showPicker = false;
+    //   this.sortByDue();
+    // },
 
-    clickMe() {
-      this.dialog = false;
-      this.newTaskTitle = "";
-    },
+    // clickMe() {
+    //   this.dialog = false;
+    //   this.newTaskTitle = "";
+    // },
 
-    include() {
-      return [document.querySelector(".included")];
-    },
+    // include() {
+    //   return [document.querySelector(".included")];
+    // },
   },
 };
 </script>
