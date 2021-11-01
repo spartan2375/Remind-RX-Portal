@@ -143,6 +143,8 @@
               </v-list-item>
             </v-list-item-group>
           </v-list>
+          <v-divider></v-divider>
+          <v-img src="graph.png" />
         </v-col>
 
         <!-- #################
@@ -161,7 +163,7 @@
                     Last seen in office: {{ currentPatient[0].lastVisit }}
                   </h6>
                   <h5>{{ currentPatient[0].name }}</h5>
-                  <h6>70 years | Male</h6>
+                  <h6>{{ currentPatient[0].age }} | Male</h6>
                 </v-col>
 
                 <v-btn icon large color="primary">
@@ -182,37 +184,42 @@
                 <v-col>
                   <v-icon>mdi-cards-heart</v-icon>
                   Blood Pressure
-                  <h2 class="green--text">120/80 mm Hg -10/5</h2>
+                  <h2 class="green--text">
+                    {{ currentPatient[0].bloodPressure }}
+                  </h2>
                   <h5>last checked: 7 days ago</h5>
                 </v-col>
                 <v-divider vertical></v-divider>
                 <v-col>
                   <v-icon>mdi-heart-pulse</v-icon>
                   Heart Rate
-                  <h2 class="red--text">93 bpm +12</h2>
+                  <h2 class="red--text">{{ currentPatient[0].heartRate }}</h2>
                   <h5>last checked: 1 hour ago</h5>
                 </v-col>
                 <v-divider vertical></v-divider>
                 <v-col>
                   <v-icon>mdi-scale</v-icon>
                   Weight
-                  <h2>180 lbs</h2>
+                  <h2>{{ currentPatient[0].weight }} lbs</h2>
                   <h5>last checked: 7 days ago</h5>
                 </v-col>
                 <v-divider vertical></v-divider>
                 <v-col>
                   <v-icon>mdi-water-alert</v-icon>
                   Blood Glucose
-                  <h2 class="yellow--text">160 mg/dL +5</h2>
+                  <h2 class="yellow--text">
+                    {{ currentPatient[0].bloodGlucose }}
+                  </h2>
                   <h5>last checked: 7 days ago</h5>
                 </v-col>
               </v-row>
               <v-row>
-                Notes 2021-11-05: Patient heart rate has increased indicating
-                overdose of 2 litre Mountain Dew
+                Notes {{ currentPatient[0].lastVisit }}:
+                {{ currentPatient[0].addNotes }}
               </v-row>
             </v-card-text>
           </v-card>
+          <v-divider class="mt-7 mb-3"></v-divider>
 
           <v-card class="my-2">
             <v-card-title>
@@ -236,7 +243,7 @@
                       </v-text-field>
                     </v-col>
                     <v-divider vertical></v-divider>
-                    <v-col cols="3">
+                    <v-col cols="2">
                       <v-text-field
                         outlined
                         label="Medication time"
@@ -246,7 +253,7 @@
                       </v-text-field>
                     </v-col>
                     <v-divider vertical></v-divider>
-                    <v-col cols="3">
+                    <v-col cols="2">
                       <v-text-field
                         outlined
                         label="Dosage"
@@ -256,7 +263,7 @@
                       </v-text-field>
                     </v-col>
                     <v-divider vertical></v-divider>
-                    <v-col cols="3">
+                    <v-col cols="5">
                       <v-text-field
                         outlined
                         label="Notes"
@@ -277,7 +284,7 @@
           STUFF ADDED HERE 
           Heart Rate graph from Vuetify.js docs-->
 
-          <v-card class="mx-auto mt-5" color="grey lighten-4" max-width="600">
+          <!-- <v-card class="mx-auto mt-5" color="grey lighten-4" max-width="600">
             <v-card-title>
               <v-icon
                 :color="checking ? 'red lighten-2' : 'indigo'"
@@ -318,9 +325,7 @@
                 stroke-linecap="round"
               ></v-sparkline>
             </v-sheet>
-          </v-card>
-
-          <v-img src="graph.png" />
+          </v-card> -->
         </v-col>
       </v-row>
     </v-container>
@@ -353,24 +358,30 @@ export default {
           status: true,
           contact: true,
           lastVisit: "2021-11-05",
+          age: 70,
+          bloodPressure: "120/80 mm Hg -10/5",
+          heartRate: "93 bpm + 12",
+          weight: 180,
+          bloodGlucose: "160 mg/dL +5",
+          addNotes: "Seems to enjoy playing Fortnite",
           medDetes: [
             {
               time: "8:00am",
-              name: "Azithromycin",
-              dose: "10mg",
-              notes: "Take with food",
+              name: "Zithromax",
+              dose: "500mg",
+              notes: "Take two tablets orally",
             },
             {
               time: "5:00pm",
-              name: "Melatonin",
-              dose: "10mg",
-              notes: "Take with water",
+              name: "FloLipid",
+              dose: "20mg",
+              notes: " Shake well, take in evening on empty stomach.",
             },
             {
               time: "6:00pm",
-              name: "Amlodipine besylate",
-              dose: "10mg",
-              notes: "Take at least 30 minutes before dinner",
+              name: "Norvasc",
+              dose: "5mg",
+              notes: "Review doseage at next appointment",
             },
           ],
         },
@@ -380,24 +391,30 @@ export default {
           status: true,
           contact: false,
           lastVisit: "2021-11-01",
+          age: 76,
+          bloodPressure: "115/79 mm Hg -2/0",
+          heartRate: "82 bpm + 2",
+          weight: 163,
+          bloodGlucose: "145 mg/dL +3",
+          addNotes: "Watches an occasional episode of My Little Pony",
           medDetes: [
             {
               time: "8:00am",
-              name: "Azithromycin",
-              dose: "10mg",
-              notes: "Take with food",
+              name: "Synthroid",
+              dose: "150mcg",
+              notes: "Take on empty stomach before breakfast",
             },
             {
-              time: "5:00pm",
-              name: "Melatonin",
+              time: "12:00pm",
+              name: "Zestril",
               dose: "10mg",
               notes: "Take with water",
             },
             {
-              time: "6:00pm",
-              name: "Amlodipine besylate",
-              dose: "10mg",
-              notes: "Take at least 30 minutes before dinner",
+              time: "5:00pm",
+              name: "FloLipid",
+              dose: "20mg",
+              notes: "Shake well, take in evening on empty stomach",
             },
           ],
         },
@@ -407,24 +424,30 @@ export default {
           status: false,
           contact: true,
           lastVisit: "2021-10-15",
+          age: 79,
+          bloodPressure: "130/87 mm Hg -4/2",
+          heartRate: "97 bpm + 7",
+          weight: 160,
+          bloodGlucose: "173 mg/dL +8",
+          addNotes: "Throws water balloons at kids at the local pre-school",
           medDetes: [
             {
-              time: "8:00am",
-              name: "Azithromycin",
-              dose: "10mg",
-              notes: "Take with food",
+              time: "12:00pm",
+              name: "Riomet",
+              dose: "850mg",
+              notes: "Take with meals",
             },
             {
-              time: "5:00pm",
-              name: "Melatonin",
-              dose: "10mg",
-              notes: "Take with water",
+              time: "12:00pm",
+              name: "Zegerid",
+              dose: "40mg",
+              notes: "n/a",
             },
             {
               time: "6:00pm",
-              name: "Amlodipine besylate",
+              name: "Norvasc",
               dose: "10mg",
-              notes: "Take at least 30 minutes before dinner",
+              notes: "Review dosage at next appointment",
             },
           ],
         },
