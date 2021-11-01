@@ -214,6 +214,65 @@
             </v-card-text>
           </v-card>
 
+          <v-card class="my-2">
+            <v-card-title>
+              Medication Times
+            </v-card-title>
+            <v-list>
+              <!-- DO STUFF HERE FOR LISTING MED TIMES -->
+              <v-list-item
+                v-for="(med, i) in currentPatient[0].medDetes"
+                :key="i"
+              >
+                <v-row>
+                  <v-list-item-content>
+                    <v-col cols="3">
+                      <v-text-field
+                        outlined
+                        label="Medication name"
+                        v-model="med.name"
+                        readonly
+                      >
+                      </v-text-field>
+                    </v-col>
+                    <v-divider vertical></v-divider>
+                    <v-col cols="3">
+                      <v-text-field
+                        outlined
+                        label="Medication time"
+                        v-model="med.time"
+                        readonly
+                      >
+                      </v-text-field>
+                    </v-col>
+                    <v-divider vertical></v-divider>
+                    <v-col cols="3">
+                      <v-text-field
+                        outlined
+                        label="Dosage"
+                        v-model="med.dose"
+                        readonly
+                      >
+                      </v-text-field>
+                    </v-col>
+                    <v-divider vertical></v-divider>
+                    <v-col cols="3">
+                      <v-text-field
+                        outlined
+                        label="Notes"
+                        clearable
+                        v-model="med.notes"
+                      >
+                      </v-text-field>
+                    </v-col>
+                    <!-- <v-list-item-title>
+                    
+                  </v-list-item-title> -->
+                  </v-list-item-content>
+                </v-row>
+              </v-list-item>
+            </v-list>
+          </v-card>
           <!-- #########################
           STUFF ADDED HERE 
           Heart Rate graph from Vuetify.js docs-->
@@ -260,18 +319,9 @@
               ></v-sparkline>
             </v-sheet>
           </v-card>
-          <v-list>
-            <!-- DO STUFF HERE FOR LISTING MED TIMES -->
-          </v-list>
 
-          <img src="graph.png" />
-          <img src="example.png" />
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
-            necessitatibus quis totam ducimus assumenda cupiditate consequuntur.
-            Aspernatur eaque sunt, molestias possimus recusandae cumque. Fugiat
-            dolore minus natus labore in pariatur.
-          </p>
+          <v-img src="graph.png" />
+          <!-- <img src="example.png" /> -->
         </v-col>
       </v-row>
     </v-container>
@@ -304,6 +354,26 @@ export default {
           status: true,
           contact: true,
           lastVisit: "2021-11-05",
+          medDetes: [
+            {
+              time: "8:00am",
+              name: "Azithromycin",
+              dose: "10mg",
+              notes: "Take with food",
+            },
+            {
+              time: "5:00pm",
+              name: "Melatonin",
+              dose: "10mg",
+              notes: "Take with water",
+            },
+            {
+              time: "6:00pm",
+              name: "Amlodipine besylate",
+              dose: "10mg",
+              notes: "Take at least 30 minutes before dinner",
+            },
+          ],
         },
         {
           name: "Joe",
@@ -311,6 +381,26 @@ export default {
           status: true,
           contact: false,
           lastVisit: "2021-11-01",
+          medDetes: [
+            {
+              time: "8:00am",
+              name: "Azithromycin",
+              dose: "10mg",
+              notes: "Take with food",
+            },
+            {
+              time: "5:00pm",
+              name: "Melatonin",
+              dose: "10mg",
+              notes: "Take with water",
+            },
+            {
+              time: "6:00pm",
+              name: "Amlodipine besylate",
+              dose: "10mg",
+              notes: "Take at least 30 minutes before dinner",
+            },
+          ],
         },
         {
           name: "Raph",
@@ -318,6 +408,26 @@ export default {
           status: false,
           contact: true,
           lastVisit: "2021-10-15",
+          medDetes: [
+            {
+              time: "8:00am",
+              name: "Azithromycin",
+              dose: "10mg",
+              notes: "Take with food",
+            },
+            {
+              time: "5:00pm",
+              name: "Melatonin",
+              dose: "10mg",
+              notes: "Take with water",
+            },
+            {
+              time: "6:00pm",
+              name: "Amlodipine besylate",
+              dose: "10mg",
+              notes: "Take at least 30 minutes before dinner",
+            },
+          ],
         },
       ],
 
