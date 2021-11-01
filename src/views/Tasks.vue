@@ -321,7 +321,6 @@
           </v-card>
 
           <v-img src="graph.png" />
-          <!-- <img src="example.png" /> -->
         </v-col>
       </v-row>
     </v-container>
