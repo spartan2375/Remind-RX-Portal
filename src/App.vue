@@ -74,7 +74,7 @@
 export default {
   data: () => ({
     drawer: false,
-    loggedIn: true,
+    loggedIn: false,
     items: [
       { title: "Dashboard", icon: "mdi-home", to: "/" },
       { title: "Patients", icon: "mdi-account", to: "/" },

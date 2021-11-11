@@ -37,7 +37,9 @@
             </v-card-text>
             <v-card-actions class="pa-6">
               <v-row justify="center">
-                <v-btn @click.stop="$emit('log-me-in')" to="/">Login</v-btn>
+                <v-btn @click.stop="$emit('log-me-in')" to="/Tasks"
+                  >Login</v-btn
+                >
               </v-row>
             </v-card-actions>
           </v-card>
