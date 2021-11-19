@@ -187,7 +187,7 @@
                   <h2 class="green--text">
                     {{ currentPatient[0].bloodPressure }}
                   </h2>
-                  <h5>last checked: 7 days ago ago</h5>
+                  <h5>last checked: 7 days ago</h5>
                 </v-col>
                 <v-divider vertical></v-divider>
                 <v-col>
