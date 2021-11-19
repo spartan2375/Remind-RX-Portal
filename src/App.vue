@@ -5,7 +5,7 @@
       <v-navigation-drawer v-model="drawer" app>
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title class="title"> Remind RX </v-list-item-title>
+            <v-list-item-title class="title"> Remind Rx </v-list-item-title>
             <v-list-item-subtitle>
               A Better Life for Patients
             </v-list-item-subtitle>
@@ -35,7 +35,7 @@
       <v-app-bar app dark color="primary" src="water.jpg">
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-        <v-toolbar-title>Remind RX</v-toolbar-title>
+        <v-toolbar-title>Remind Rx</v-toolbar-title>
         <v-text-field
           class="mt-2 mx-7"
           label="Search for patients"
@@ -74,10 +74,10 @@
 export default {
   data: () => ({
     drawer: false,
-    loggedIn: false,
+    loggedIn: true,
     items: [
       { title: "Dashboard", icon: "mdi-home", to: "/" },
-      { title: "Patients", icon: "mdi-account", to: "/" },
+      { title: "Patients", icon: "mdi-account", to: "/tasks" },
       { title: "Settings", icon: "mdi-cog", to: "/about" },
     ],
   }),

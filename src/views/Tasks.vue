@@ -130,8 +130,8 @@
                     </v-col>
 
                     <v-col>
-                      <v-chip outlined color="primary">
-                        Last Visit: {{ patient.lastVisit }}
+                      <v-chip outlined color="grey">
+                        Last Visit: N/A
                       </v-chip>
                     </v-col>
                     <v-spacer></v-spacer>
@@ -363,11 +363,12 @@ export default {
           heartRate: "93 bpm + 12",
           weight: 180,
           bloodGlucose: "160 mg/dL +5",
-          addNotes: "Seems to enjoy playing Fortnite",
+          addNotes:
+            "Seems that the blood pressure has been dropping over the months",
           medDetes: [
             {
               time: "8:00am",
-              name: "Zithromax",
+              name: "Pillpack 1",
               dose: "500mg",
               notes: "Take two tablets orally",
             },
@@ -396,24 +397,24 @@ export default {
           heartRate: "82 bpm + 2",
           weight: 163,
           bloodGlucose: "145 mg/dL +3",
-          addNotes: "Watches an occasional episode of My Little Pony",
+          addNotes: "Watch Heart Rate over the course of the next few months",
           medDetes: [
             {
               time: "8:00am",
-              name: "Synthroid",
-              dose: "150mcg",
+              name: "Pillpack 1",
+              dose: "N/A",
               notes: "Take on empty stomach before breakfast",
             },
             {
               time: "12:00pm",
-              name: "Zestril",
-              dose: "10mg",
+              name: "Pillpack 2",
+              dose: "N/A",
               notes: "Take with water",
             },
             {
               time: "5:00pm",
-              name: "FloLipid",
-              dose: "20mg",
+              name: "Pillpack 3",
+              dose: "N/A",
               notes: "Shake well, take in evening on empty stomach",
             },
           ],
@@ -429,7 +430,7 @@ export default {
           heartRate: "97 bpm + 7",
           weight: 160,
           bloodGlucose: "173 mg/dL +8",
-          addNotes: "Throws water balloons at kids at the local pre-school",
+          addNotes: "This is an example note",
           medDetes: [
             {
               time: "12:00pm",

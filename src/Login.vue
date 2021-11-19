@@ -6,7 +6,7 @@
         <v-row justify="center">
           <v-card dark>
             <v-card-title class="text-h3 ">
-              RemindRX
+              RemindRx
             </v-card-title>
             <v-card-subtitle>
               A Better Life for Patients
