@@ -18,10 +18,10 @@
               </v-btn>
             </v-col>
             <v-col cols="8"
-              >Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
-              labore officiis cumque iure ipsa, enim, earum iste qui eos odit
-              omnis illo. Eius veritatis consequuntur facilis architecto est
-              quia deserunt.</v-col
+              >Lorem ipsum dolasdfasdfor sit amet consectetur adipisicing elit.
+              Unde labore officiis cumque iure ipsa, enim, earum iste qui eos
+              odit omnis illo. Eius veritatis consequuntur facilis architecto
+              est quia deserunt.</v-col
             >
           </v-row>
         </v-list-item>
